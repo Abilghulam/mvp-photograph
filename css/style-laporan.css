@@ -1,0 +1,38 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 30px;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d1d1d;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+thead {
+    background-color: #e63946;
+    color: #ffffff;
+}
+th, td {
+    padding: 12px 16px;
+    font-size: 14px; /* >> lebih besar dan nyaman dibaca */
+}
+th {
+    text-align: center;
+    font-weight: 600;
+}
+td {
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
