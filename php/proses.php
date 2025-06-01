@@ -4,6 +4,7 @@ require 'server.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil semua data form
     $jenis_layanan = $_POST['jenis_layanan'];
+    $harga_paket = isset($_POST['harga_paket']) ? floatval($_POST['harga_paket']) : 0;
     $tanggal_pemesanan = $_POST['tanggal_pemesanan'];
     $waktu_pemesanan = $_POST['waktu_pemesanan'];
     $lokasi = $_POST['lokasi'];
@@ -12,11 +13,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
 
     // Insert ke database
-    $stmt = $conn->prepare("INSERT INTO pemesanan (jenis_layanan, tanggal_pemesanan, waktu_pemesanan, lokasi, nama_lengkap, nomor_telepon, email, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'Menunggu')");
-    $stmt->bind_param("sssssss", $jenis_layanan, $tanggal_pemesanan, $waktu_pemesanan, $lokasi, $nama_lengkap, $nomor_telepon, $email);
+    $stmt = $conn->prepare("INSERT INTO pemesanan 
+        (jenis_layanan, harga_paket, tanggal_pemesanan, waktu_pemesanan, lokasi, nama_lengkap, nomor_telepon, email, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Menunggu')");
+    
+    // s = string, d = double
+    $stmt->bind_param("sdssssss", 
+        $jenis_layanan, 
+        $harga_paket, 
+        $tanggal_pemesanan, 
+        $waktu_pemesanan, 
+        $lokasi, 
+        $nama_lengkap, 
+        $nomor_telepon, 
+        $email
+    );
 
     if ($stmt->execute()) {
-        // Redirect ke halaman sebelumnya dengan success
         header("Location: ../index.php?success=true");
         exit();
     } else {

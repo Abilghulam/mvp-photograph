@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Cek role
             if ($user['role'] === 'admin') {
-                header("Location: ../index-admin.php"); // ke dashboard admin
+                header("Location: ../home-admin.php"); // ke dashboard admin
             } else {
                 header("Location: ../index.php"); // ke halaman client
             }

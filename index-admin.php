@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Untuk login admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: php/login.php');
+    exit();
+}
+
 // Require file koneksi
 require 'php/server.php';
 
@@ -18,12 +24,6 @@ if ($status_filter != '' && in_array($status_filter, ['Menunggu', 'Disetujui', '
     $result = $conn->query("SELECT * FROM pemesanan");
 }
 
-// Untuk login admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: php/login.php');
-    exit();
-}
-
 // Query untuk menghitung data dashboard
 $total_pemesanan = $conn->query("SELECT COUNT(*) AS total FROM pemesanan")->fetch_assoc()['total'];
 $menunggu = $conn->query("SELECT COUNT(*) AS total FROM pemesanan WHERE status = 'Menunggu'")->fetch_assoc()['total'];
@@ -36,7 +36,7 @@ $ditolak = $conn->query("SELECT COUNT(*) AS total FROM pemesanan WHERE status = 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Most Valuable Photograph</title>
+    <title>Pemesanan - Most Valuable Photograph</title>
     <link rel="stylesheet" href="css/style-admin.css">
 </head>
 <body>
@@ -48,7 +48,12 @@ $ditolak = $conn->query("SELECT COUNT(*) AS total FROM pemesanan WHERE status = 
             <h1>MV<span>Photograph</span></h1>
         </div>
         <div class="menu">
-            <div class="menu-title">Main Menu</div>
+            <!-- Section Jasa -->
+            <div class="menu-title">Layanan Jasa</div>
+            <div class="menu-item" onclick="window.location.href='home-admin.php'">
+                <i>🏠</i> Home
+            </div>
+            
             <div class="menu-item active" onclick="window.location.href='index-admin.php'">
                 <i>📊</i> Pemesanan
             </div>
@@ -57,6 +62,13 @@ $ditolak = $conn->query("SELECT COUNT(*) AS total FROM pemesanan WHERE status = 
                 <i>📋</i> Laporan
             </div>
 
+            <!-- Section Sewa -->
+            <div class="menu-title">Layanan Sewa</div>
+            <div class="menu-item" onclick="window.location.href='kamera-admin.php'">
+                <i>📷</i> Data Kamera
+            </div>
+
+            <!-- Section Option -->
             <div class="menu-title">Option</div>
             <!-- Tombol Logout -->
             <div class="menu-item logout" onclick="confirmLogout()" style="color: #ff6b6b;">
@@ -74,19 +86,19 @@ $ditolak = $conn->query("SELECT COUNT(*) AS total FROM pemesanan WHERE status = 
         <!-- Stats Cards -->
         <div class="content-cards">
             <div class="card">
-                <h3>Total Pemesanan</h3>
+                <h3>Total Order</h3>
                 <p><?= $total_pemesanan ?></p>
             </div>
             <div class="card">
-                <h3>Menunggu Konfirmasi</h3>
+                <h3>Pending</h3>
                 <p><?= $menunggu ?></p>
             </div>
             <div class="card">
-                <h3>Disetujui</h3>
+                <h3>Approved</h3>
                 <p><?= $disetujui ?></p>
             </div>
             <div class="card">
-                <h3>Ditolak</h3>
+                <h3>Rejected</h3>
                 <p><?= $ditolak ?></p>
             </div>
         </div>

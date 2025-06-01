@@ -1,5 +1,11 @@
 <?php
-session_start()
+session_start();
+
+// Cek apakah sudah login
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php'); // Kalau sudah akan masuk ke index
+    exit(); // Kalau belum akan tetap di index-front
+}
 ?>
 
 <!DOCTYPE html>
@@ -157,9 +163,9 @@ session_start()
                         <h3>Sony A6000</h3>
                         <p class="rental-price">Rp 300.000/hari</p>
                         <p class="rental-features">
-                            24,3MP APS-C (23,5 x 15,6mm)<br>
+                            24.3MP APS-C (23.5 x 15.6mm)<br>
                             Full HD 1080 AVCHD 2.0/MP4<br>
-                            Tru-Finder 0.39" 1,440k-Dot OLED EVF<br>
+                            Tru-Finder 0.39" 1.440k-Dot OLED EVF<br>
                             Fast Hybrid AF & 179 Phase-Detect Points
                         </p>
                         <button class="button" onclick="openQuickView('Sony A6000', 300000)">Quick View</button>
@@ -262,7 +268,7 @@ session_start()
                         <h3>Lensa Sigma DG HSM</h3>
                         <p class="rental-price">Rp 250.000/hari</p>
                         <ul class="rental-features">
-                            <li>for Sony E Mount and Canon EF Mount</li>
+                            <li>Sony E Mount and Canon EF Mount</li>
                             <li>94.5 Angle of View</li>
                             <li>F16 Minimum Aperture</li>
                             <li>20mm/F1.4 DG Full Frame</li>
@@ -279,7 +285,7 @@ session_start()
                             <li>FE 50mm/F2.5 G</li>
                             <li>35mm Full Frame Format</li>
                             <li>F22 - F2.3 Aperture</li>
-                            <li>0.35m AF/0.31m MF Focus Distance</li>
+                            <li>0.35m AF / 0.31m MF Focus Distance</li>
                         </ul>
                         <button class="button" onclick="openQuickView('Lensa Fix Sony SEL50F25G', 250000, 'img/lensa-fix-sony.png')">Quick View</button>
                     </div>
@@ -314,7 +320,7 @@ session_start()
                             <li>Load Capacity 7 Kg</li>
                             <li>4.9 cm - 58 cm</li>
                             <li>Folded Length 39 cm</li>
-                            <li>Compact Aluminium FIber</li>
+                            <li>Compact Aluminium Fiber</li>
                           </ul>
                         <button class="button" onclick="openQuickView('Tripod Sirui T-004KX', 65000)">Quick View</button>
                     </div>

@@ -29,6 +29,7 @@ function filterStatus(status) {
 
 // Fungsi untuk mengisi hidden input saat download PDF
 document.addEventListener('DOMContentLoaded', function () {
+    // PDF
     const downloadForm = document.querySelector('form[action="php/export-pdf.php"]');
     if (downloadForm) {
         downloadForm.addEventListener('submit', function() {
@@ -45,4 +46,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Excel
+    const excelForm = document.querySelector('form[action="php/export-excel.php"]');
+    if (excelForm) {
+        excelForm.addEventListener('submit', function () {
+            const fromDateInput = document.getElementById('from_date');
+            const toDateInput = document.getElementById('to_date');
+            const hiddenExcelFromDate = document.getElementById('hidden_excel_from_date');
+            const hiddenExcelToDate = document.getElementById('hidden_excel_to_date');
+
+            if (fromDateInput && hiddenExcelFromDate) {
+                hiddenExcelFromDate.value = fromDateInput.value;
+            }
+            if (toDateInput && hiddenExcelToDate) {
+                hiddenExcelToDate.value = toDateInput.value;
+            }
+        });
+    }
 });
+

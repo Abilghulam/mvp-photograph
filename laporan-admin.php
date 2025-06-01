@@ -34,7 +34,13 @@ if ($status_filter != '' && in_array($status_filter, ['Menunggu', 'Disetujui', '
             <h1>MV<span>Photograph</span></h1>
         </div>
         <div class="menu">
-            <div class="menu-title">Main Menu</div>
+
+            <!-- Section Layanan -->
+            <div class="menu-title">Layanan Jasa</div>
+            <div class="menu-item" onclick="window.location.href='home-admin.php'">
+                <i>🏠</i> Home
+            </div>
+
             <div class="menu-item" onclick="window.location.href='index-admin.php'">
                 <i>📊</i> Pemesanan
             </div>
@@ -43,6 +49,13 @@ if ($status_filter != '' && in_array($status_filter, ['Menunggu', 'Disetujui', '
                 <i>📋</i> Laporan
             </div>
 
+            <!-- Section Sewa -->
+            <div class="menu-title">Layanan Sewa</div>
+            <div class="menu-item" onclick="window.location.href='kamera-admin.php'">
+                <i>📷</i> Data Kamera
+            </div>
+
+            <!-- Section Option -->
             <div class="menu-title">Option</div>
             <!-- Tombol Logout -->
             <div class="menu-item logout" onclick="confirmLogout()" style="color: #ff6b6b;">
@@ -86,8 +99,18 @@ if ($status_filter != '' && in_array($status_filter, ['Menunggu', 'Disetujui', '
                         <input type="hidden" name="status" value="<?= htmlspecialchars($status_filter) ?>">
                         <input type="hidden" id="hidden_from_date" name="from_date" value="">
                         <input type="hidden" id="hidden_to_date" name="to_date" value="">
-                        <button type="submit" class="btn btn-download" style="background-color: green; color: white; padding: 8px 16px; border-radius: 6px; border: none;">
+                        <button type="submit" class="btn btn-download" style="background-color: red; color: white; padding: 8px 16px; border-radius: 6px; border: none;">
                             Download PDF
+                        </button>
+                    </form>
+
+                <!-- Section Download laporan -->
+                <form method="GET" action="php/export-excel.php" style="display: inline;" target="_blank">
+                        <input type="hidden" name="status" value="<?= htmlspecialchars($status_filter) ?>">
+                        <input type="hidden" id="hidden_from_date" name="from_date" value="">
+                        <input type="hidden" id="hidden_to_date" name="to_date" value="">
+                        <button type="submit" class="btn btn-download" style="background-color: green; color: white; padding: 8px 16px; border-radius: 6px; border: none;">
+                            Download Excel
                         </button>
                     </form>
                 <?php endif; ?>

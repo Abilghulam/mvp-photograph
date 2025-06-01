@@ -45,6 +45,7 @@ $html .= '
         <tr>
             <th>ID</th>
             <th>Jenis Layanan</th>
+            <th>Harga Paket<th>
             <th>Tanggal Pemesanan</th>
             <th>Waktu Pemesanan</th>
             <th>Lokasi</th>
@@ -63,6 +64,7 @@ if ($result->num_rows > 0) {
         $html .= '<tr>';
         $html .= '<td>' . htmlspecialchars($row['id']) . '</td>';
         $html .= '<td>' . htmlspecialchars($row['jenis_layanan']) . '</td>';
+        $html .= '<td>' . htmlspecialchars($row['harga_paket']) . '</td>';
         $html .= '<td>' . htmlspecialchars($row['tanggal_pemesanan']) . '</td>';
         $html .= '<td>' . htmlspecialchars($row['waktu_pemesanan']) . '</td>';
         $html .= '<td>' . htmlspecialchars($row['lokasi']) . '</td>';

@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetch(this.action, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded', // ⬅️ penting
+                        'Content-Type': 'application/x-www-form-urlencoded', // penting
                     },
-                    body: `id=${encodeURIComponent(id)}&status=${encodeURIComponent(status)}` // ⬅️ encode supaya aman
+                    body: `id=${encodeURIComponent(id)}&status=${encodeURIComponent(status)}` // encode supaya aman
                 })
                 .then(response => response.json())
                 .then(data => {

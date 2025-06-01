@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Cek apakah sudah login
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index-front.php'); // Kalau belum akan dilempar ke index-front
+    exit(); // Kalau sudah akan tetap di index
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -21,7 +31,6 @@
                     <li><a href="#layanan">Layanan</a></li>
                     <li><a href="#sewa1">Sewa Peralatan</a></li>
                     <li><a href="#galeri">Galeri</a></li>
-                    <li><a href="#pemesanan">Pemesanan</a></li>
                     <li><a href="#kontak">Kontak</a></li>
                     <li><a href="javascript:void(0);" onclick="confirmLogout()" style="color: #ff6b6b;">Log out</a></li>
                 </ul>
@@ -50,7 +59,7 @@
                     <div class="service-content">
                         <h3>Graduation Photo</h3>
                         <p>Rayakan pencapaian akademik Anda dengan sesi foto profesional. Kami menawarkan paket foto wisuda individual maupun kelompok dengan tema yang diinginkan.</p>
-                        <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+                        <a href="#pemesanan" class="btn pesan-sekarang" data-layanan="Graduation">Pesan Sekarang</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -58,7 +67,7 @@
                     <div class="service-content">
                         <h3>Product Photo</h3>
                         <p>Tingkatkan daya tarik produk bisnis Anda dengan foto produk berkualitas tinggi. Cocok untuk katalog, e-commerce, dan keperluan pemasaran.</p>
-                        <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+                        <a href="#pemesanan" class="btn pesan-sekarang" data-layanan="Product">Pesan Sekarang</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -66,7 +75,7 @@
                     <div class="service-content">
                         <h3>Wedding/Pre-Wedding</h3>
                         <p>Abadikan momen spesial pernikahan Anda dengan sentuhan profesional, kami siap melayani Anda mulai dari Pre-Wedding, Wedding, hingga resepsi.</p>
-                        <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+                        <a href="#pemesanan" class="btn pesan-sekarang" data-layanan="Wedding/Pre-Wedding">Pesan Sekarang</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -74,7 +83,7 @@
                     <div class="service-content">
                         <h3>Models Photo</h3>
                         <p>Abadikan gaya dan ekspresi terbaik Anda dengan sesi pemotretan model profesional. Cocok untuk portofolio, majalah, dan media sosial.</p>
-                        <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+                        <a href="#pemesanan" class="btn pesan-sekarang" data-layanan="Models">Pesan Sekarang</a>
                     </div>
                 </div>
                 <div class="service-card">
@@ -82,7 +91,7 @@
                     <div class="service-content">
                         <h3>Event Documentation</h3>
                         <p>Abadikan setiap momen spesial dari acara Anda dengan dokumentasi profesional, Kami siap meliput berbagai jenis event dengan vibe yang meriah.</p>
-                        <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+                        <a href="#pemesanan" class="btn pesan-sekarang" data-layanan="Event Documentation">Pesan Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -154,9 +163,9 @@
                         <h3>Sony A6000</h3>
                         <p class="rental-price">Rp 300.000/hari</p>
                         <p class="rental-features">
-                            24,3MP APS-C (23,5 x 15,6mm)<br>
+                            24.3MP APS-C (23.5 x 15.6mm)<br>
                             Full HD 1080 AVCHD 2.0/MP4<br>
-                            Tru-Finder 0.39" 1,440k-Dot OLED EVF<br>
+                            Tru-Finder 0.39" 1.440k-Dot OLED EVF<br>
                             Fast Hybrid AF & 179 Phase-Detect Points
                         </p>
                         <button class="button" onclick="openQuickView('Sony A6000', 300000)">Quick View</button>
@@ -259,7 +268,7 @@
                         <h3>Lensa Sigma DG HSM</h3>
                         <p class="rental-price">Rp 250.000/hari</p>
                         <ul class="rental-features">
-                            <li>for Sony E Mount and Canon EF Mount</li>
+                            <li>Sony E Mount and Canon EF Mount</li>
                             <li>94.5 Angle of View</li>
                             <li>F16 Minimum Aperture</li>
                             <li>20mm/F1.4 DG Full Frame</li>
@@ -276,7 +285,7 @@
                             <li>FE 50mm/F2.5 G</li>
                             <li>35mm Full Frame Format</li>
                             <li>F22 - F2.3 Aperture</li>
-                            <li>0.35m AF/0.31m MF Focus Distance</li>
+                            <li>0.35m AF / 0.31m MF Focus Distance</li>
                         </ul>
                         <button class="button" onclick="openQuickView('Lensa Fix Sony SEL50F25G', 250000, 'img/lensa-fix-sony.png')">Quick View</button>
                     </div>
@@ -311,7 +320,7 @@
                             <li>Load Capacity 7 Kg</li>
                             <li>4.9 cm - 58 cm</li>
                             <li>Folded Length 39 cm</li>
-                            <li>Compact Aluminium FIber</li>
+                            <li>Compact Aluminium Fiber</li>
                           </ul>
                         <button class="button" onclick="openQuickView('Tripod Sirui T-004KX', 65000)">Quick View</button>
                     </div>
@@ -435,62 +444,6 @@
     </section>
     <!--Section End-->
 
-    <!--Menu Section Form-->
-    <section id="pemesanan" class="section">
-        <div class="container">
-        <h2 class="section-title">Form Pemesanan Jasa</h2>
-        <div class="booking-form">
-            <form id="booking-form" method="POST" action="php/proses.php">
-            <div class="form-group">
-                <label for="service-type">Jenis Layanan</label>
-                <select id="service-type" name="jenis_layanan" class="form-control" required>
-                <option value="">Pilih Layanan</option>
-                <option value="Graduation">Graduation</option>
-                <option value="Product">Product</option>
-                <option value="Wedding/Pre-Wedding">Wedding/Pre-Wedding</option>
-                <option value="Models">Models</option>
-                <option value="Event">Event</option>
-                </select>
-            </div>
-    
-            <div class="form-row">
-                <div class="form-group">
-                <label for="booking-date">Tanggal Pemesanan</label>
-                <input type="date" id="booking-date" name="tanggal_pemesanan" class="form-control" required>
-                </div>
-                <div class="form-group">
-                <label for="booking-time">Waktu</label>
-                <input type="time" id="booking-time" name="waktu_pemesanan" class="form-control" required>
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <label for="location">Lokasi</label>
-                <input type="text" id="location" name="lokasi" class="form-control" placeholder="Masukkan alamat lokasi" required>
-            </div>
-    
-            <div class="form-row">
-                <div class="form-group">
-                <label for="name">Nama Lengkap</label>
-                <input type="text" id="name" name="nama_lengkap" class="form-control" placeholder="Nama lengkap Anda" required>
-                </div>
-                <div class="form-group">
-                <label for="phone">Nomor Telepon</label>
-                <input type="tel" id="phone" name="nomor_telepon" class="form-control" placeholder="Nomor telepon Anda" required>
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <label for="email">Alamat Email</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="email@example.com" required>
-            </div>
-    
-            <button type="submit" class="btn" style="width: 100%;">Kirim Pemesanan</button>
-            </form>
-        </div>
-        </div>
-    </section>
-
     <!-- Modal sukses -->
     <div id="successModal" class="modal-success" style="display: none;">
         <div class="modal-success-content">
@@ -547,6 +500,52 @@
         </div>
     </footer>
     <!--Section End-->
+
+    <!-- Modal Form Pemesanan -->
+    <div id="modalPemesanan" class="modal-pemesanan" style="display: none;">
+    <div class="modal-content-pemesanan">
+        <span class="close-btn" onclick="tutupModal()">&times;</span>
+        <h2>Form Pemesanan Jasa</h2>
+        <form id="form-modal" method="POST" action="php/proses.php">
+        <!-- Copy form dari section #pemesanan -->
+        <label>Jenis Layanan</label>
+        <select name="jenis_layanan" required id="jenis-layanan-modal">
+            <option value="">Pilih Layanan</option>
+            <option value="Graduation">Graduation</option>
+            <option value="Product">Product</option>
+            <option value="Wedding/Pre-Wedding">Wedding/Pre-Wedding</option>
+            <option value="Models">Models</option>
+            <option value="Event Documentation">Event Documentation</option>
+        </select>
+
+        <label>Harga Paket</label>
+        <input type="text" id="harga-paket-display" readonly>
+        <input type="hidden" name="harga_paket" id="harga-paket">
+
+
+        <label>Tanggal Pemesanan</label>
+        <input type="date" name="tanggal_pemesanan" required>
+
+        <label>Waktu</label>
+        <input type="time" name="waktu_pemesanan" required>
+
+        <label>Lokasi</label>
+        <input type="text" name="lokasi" placeholder="Masukkan alamat lokasi" required>
+
+        <label>Nama Lengkap</label>
+        <input type="text" name="nama_lengkap" placeholder="Nama lengkap Anda" required>
+
+        <label>Nomor Telepon</label>
+        <input type="tel" name="nomor_telepon" placeholder="Nomor telepon Anda" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="email@example.com" required>
+
+        <button type="submit">Kirim Pemesanan</button>
+        </form>
+    </div>
+    </div>
+
 
     <!-- Quick View Modal -->
     <div id="quickViewModal" class="modal quick-view-modal">
