@@ -12,5 +12,3 @@ Page for Admin
 index-admin.php (main page)
 laporan-admin.php (report page "access for create report")
 detail-pesanan.php (detail booking page in main page and report page)
-
-HII
